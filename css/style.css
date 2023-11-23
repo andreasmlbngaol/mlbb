@@ -1,0 +1,42 @@
+@font-face {
+    font-family: mlbb;
+    src: url(../src/font/mlbb.ttf);
+}
+
+* {
+    font-family: mlbb;
+}
+
+body {
+    background-color: #102538 !important;
+}
+
+.nav-link:hover {
+    color: white !important;
+}
+
+.bg-navbar {
+    background-color: rgb(165, 165, 45) !important;
+}
+
+.bg-gradient {
+    background-image: linear-gradient(transparent, #0c2032) !important;
+}
+
+.active {
+    text-decoration: underline !important;
+}
+
+.card-title {
+    background-color: rgba(0, 0, 0, 0.4) !important;
+}
+
+.col-emblem {
+    flex: 0 0 auto !important;
+    width: calc(100% / 7) !important;
+}
+
+.talent:hover {
+    opacity: 0.3 !important;
+    transition-duration: 1s;
+}
