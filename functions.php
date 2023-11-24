@@ -34,4 +34,39 @@ function talents() {
     $query = "SELECT * FROM `talents`";
     return query($query);
 }
+
+function spells() {
+    $query = "SELECT * FROM `spells` ORDER BY `name`";
+    return query($query);
+}
+
+function spanColor($text) {
+    $hp = str_replace('HP', "<span class='span-hp'>HP</span>", $text);
+    $physical = str_replace('Physical', "<span class='span-physical'>Physical</span>", $hp);
+    $magic = str_replace('Magic', "<span class='span-magic'>Magic</span>", $physical);
+    $hybrid = str_replace('Hybrid', "<span class='span-hybrid'>Hybrid</span>", $magic);
+    $adaptive = str_replace('Adaptive', "<span class='span-adaptive'>Adaptive</span>", $hybrid);
+    return $adaptive;
+}
+
+function items($class = NULL) {
+    if($class === NULL) {
+        $query = "SELECT * FROM `items` ORDER BY  `level` DESC, `class`, `name`";
+    } else {
+        $query = "SELECT * FROM `items` WHERE `class` = '$class' ORDER BY  `level` DESC, `name`";
+    }
+    return query($query);
+}
+
+function slug($name) {
+    return str_replace(" ", "_", strtolower($name));
+}
+
+function idSlug($slug) {
+    return str_replace("'", "", $slug);
+}
+
+function quoteSign($name) {
+    return str_replace("'", "\\'", str_replace("\"", "\\\"", $name));
+}
 ?>

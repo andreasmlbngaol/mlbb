@@ -16,7 +16,7 @@ body {
 }
 
 .bg-navbar {
-    background-color: rgb(165, 165, 45) !important;
+    background-color: rgb(248, 238, 39) !important;
 }
 
 .bg-gradient {
@@ -27,16 +27,40 @@ body {
     text-decoration: underline !important;
 }
 
-.card-title {
+.bg-fade {
     background-color: rgba(0, 0, 0, 0.4) !important;
 }
 
 .col-emblem {
     flex: 0 0 auto !important;
+    width: calc(100% / 4) !important;
+}
+
+.col-item {
+    flex: 0 0 auto !important;
     width: calc(100% / 7) !important;
 }
 
-.talent:hover {
-    opacity: 0.3 !important;
-    transition-duration: 1s;
+.spell-img {
+    width: 100px !important;
+}
+
+.span-magic {
+    color: blue !important;
+}
+
+.span-physical {
+    color: rgb(189, 0, 0) !important;
+}
+
+.span-hp {
+    color: rgb(10, 184, 10) !important;
+}
+
+.span-hybrid {
+    color: rgb(239, 0, 175) !important;
+}
+
+.span-adaptive {
+    color: rgb(151, 0, 232);
 }
