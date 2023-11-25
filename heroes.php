@@ -87,6 +87,7 @@ if(!isset($_GET['role']) && !isset($_GET['lane'])) {
                 </div>
                 <?php endforeach ?>
             </div>
+            <p class="text-light">Source: <i><a href="https://mobile-legends.fandom.com/wiki/MLBB_Wiki" target="_blank">Fandom</a></i></p>
         </div>
     </main>
     <script src="script/script.js"></script>

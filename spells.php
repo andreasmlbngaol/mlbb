@@ -62,6 +62,7 @@ $spells = spells();
                 </div>
                 <?php endforeach ?>
             </div>
+            <p class="text-center text-light mt-0 mb-5">Source: <i><a href="https://mobile-legends.fandom.com/wiki/MLBB_Wiki" target="_blank">Fandom</a></i></p>
         </div>
     </main>
     <script src="script/script.js"></script>

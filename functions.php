@@ -82,18 +82,21 @@ function quoteSign($name) {
     return str_replace("'", "\\'", str_replace("\"", "\\\"", $name));
 }
 
-function popularity($limit) {
-    $query = "SELECT * FROM `heroes` ORDER BY `popularity` DESC limit $limit";
+function popularity($limit, $desc = true) {
+    $order = $desc ? "DESC" : "ASC";
+    $query = "SELECT * FROM `heroes` ORDER BY `popularity` $order limit $limit";
     return query($query);
 }
 
-function wins($limit) {
-    $query = "SELECT * FROM `heroes` ORDER BY `win_rate` DESC limit $limit";
+function wins($limit, $desc = true) {
+    $order = $desc ? "DESC" : "ASC";
+    $query = "SELECT * FROM `heroes` ORDER BY `win_rate` $order limit $limit";
     return query($query);
 }
 
-function banneds($limit) {
-    $query = "SELECT * FROM `heroes` ORDER BY `banned` DESC limit $limit";
+function banneds($limit, $desc = true) {
+    $order = $desc ? "DESC" : "ASC";
+    $query = "SELECT * FROM `heroes` ORDER BY `banned` $order limit $limit";
     return query($query);
 }
 ?>
