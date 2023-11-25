@@ -18,60 +18,13 @@ $talents = talents();
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar sticky-top navbar-expand-lg bg-navbar">
-        <div class="container">
-            <a class="navbar-brand" href="index.php"><img src="src/img/icon.ico" alt="" height="50"></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbar">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php">Home</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Heroes
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="heroes.php">All</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="heroes.php?role=tank">Tank</a></li>
-                            <li><a class="dropdown-item" href="heroes.php?role=fighter">Fighter</a></li>
-                            <li><a class="dropdown-item" href="heroes.php?role=assassin">Assassin</a></li>
-                            <li><a class="dropdown-item" href="heroes.php?role=mage">Mage</a></li>
-                            <li><a class="dropdown-item" href="heroes.php?role=marksman">Marksman</a></li>
-                            <li><a class="dropdown-item" href="heroes.php?role=support">Support</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active disabled" href="emblems.php">Emblems</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="spells.php">Battle Spells</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Equipments
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="items.php">All</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="items.php?class=Attack">Attack</a></li>
-                            <li><a class="dropdown-item" href="items.php?class=Magic">Magic</a></li>
-                            <li><a class="dropdown-item" href="items.php?class=Defense">Defense</a></li>
-                            <li><a class="dropdown-item" href="items.php?class=Movement">Movement</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <?php require "partial/navbar.php" ?>
     <!-- Header -->
     <header class="container text-light text-center text-decoration-underline mb-4">
         <h1>Emblems</h1>
     </header>
     <main>
+        <?php require "partial/loader.php" ?>
         <div class="container-fluid">
             <div class="row mx-2">
                 <?php foreach($emblems as $emblem): 
@@ -84,7 +37,7 @@ $talents = talents();
                     $attribute_3 = $emblem['attribute_3'];
                     $effect_3 = $emblem['effect_3'];
                 ?>
-                <div class="col-emblem text-light text-center px-1">
+                <div class="col-md-3 text-light text-center px-1">
                     <p class="d-block gap-1 mb-3">
                         <a class="btn bg-gradient" data-bs-toggle="collapse" href="#<?= $slug ?>" role="button">
                             <img src="src/img/emblems/<?php echo $slug ?>.png" alt="<?= $name ?>" width="60">
@@ -157,7 +110,6 @@ $talents = talents();
             </div>
         </div>
     </main>
-
-
+    <script src="script/script.js"></script>
 </body>
 </html>

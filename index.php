@@ -1,3 +1,10 @@
+<?php
+require "functions.php";
+$popularities = popularity(10);
+$wins = wins(10);
+$banneds = banneds(10);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,62 +19,15 @@
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar sticky-top navbar-expand-lg bg-navbar">
-        <div class="container">
-            <a class="navbar-brand" href="index.php"><img src="src/img/icon.ico" alt="" height="50"></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbar">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active disabled" href="index.php">Home</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Heroes
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="heroes.php">All</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="heroes.php?role=tank">Tank</a></li>
-                            <li><a class="dropdown-item" href="heroes.php?role=fighter">Fighter</a></li>
-                            <li><a class="dropdown-item" href="heroes.php?role=assassin">Assassin</a></li>
-                            <li><a class="dropdown-item" href="heroes.php?role=mage">Mage</a></li>
-                            <li><a class="dropdown-item" href="heroes.php?role=marksman">Marksman</a></li>
-                            <li><a class="dropdown-item" href="heroes.php?role=support">Support</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="emblems.php">Emblems</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="spells.php">Battle Spells</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Equipments
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="items.php">All</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="items.php?class=Attack">Attack</a></li>
-                            <li><a class="dropdown-item" href="items.php?class=Magic">Magic</a></li>
-                            <li><a class="dropdown-item" href="items.php?class=Defense">Defense</a></li>
-                            <li><a class="dropdown-item" href="items.php?class=Movement">Movement</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <?php require "partial/navbar.php" ?>
     <!-- Header -->
     <header class="text-center text-light mb-3">
         <h1 class="text-decoration-underline">Home</h1>
     </header>
     <!-- Main -->
     <main class="container">
-        <div id="carousel" class="carousel slide" data-bs-ride="carousel">
+        <?php require "partial/loader.php" ?>
+        <div id="carousel" class="carousel slide mb-5" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <img src="src/img/carousel/carousel-1.jpg" class="d-block w-100" alt="Khufra">
@@ -88,6 +48,84 @@
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
+        <div class="container mb-5">
+            <h2 class="text-light mt-2 text-decoration-underline">Most Popular in Mythic+</h2>
+            <table class="table table-sm table-bordered text-center table-warning">
+                <tr>
+                    <th>No</th>
+                    <th>Hero</th>
+                    <th>Popularity</th>
+                </tr>
+                <?php 
+                $i = 1; 
+                foreach($popularities as $popularity):
+                $img = str_replace(" ", "_", strtolower($popularity['name'])).".webp"; 
+                ?>
+                <tr class="align-middle">
+                    <td><?= $i ?></td>
+                    <td class="text-start">
+                        <img src="src/img/hero/<?= $img ?>" alt="<?php $popularity['name'] ?>" class="border rounded ms-5" height="50">
+                        <?= $popularity['name'] ?>
+                    </td>
+                    <td><?= $popularity['popularity'] ?></td>
+                </tr>
+                <?php 
+                $i++; 
+                endforeach ?>
+            </table>
+
+            <h2 class="text-light mt-2 text-decoration-underline">Highest Win Rate in Mythic+</h2>
+            <table class="table table-sm table-bordered text-center table-warning">
+                <tr>
+                    <th>No</th>
+                    <th>Hero</th>
+                    <th>Win Rate</th>
+                </tr>
+                <?php 
+                $i = 1; 
+                foreach($wins as $win):
+                $img = str_replace(" ", "_", strtolower($win['name'])).".webp"; 
+                ?>
+                <tr class="align-middle">
+                    <td><?= $i ?></td>
+                    <td class="text-start">
+                        <img src="src/img/hero/<?= $img ?>" alt="<?php $win['name'] ?>" class="border rounded ms-5" height="50">
+                        <?= $win['name'] ?>
+                    </td>
+                    <td><?= $win['win_rate'] ?></td>
+                </tr>
+                <?php 
+                $i++; 
+                endforeach ?>
+            </table>
+
+            <h2 class="text-light mt-2 text-decoration-underline">Most Banned in Mythic+</h2>
+            <table class="table table-sm table-bordered text-center table-warning">
+                <tr>
+                    <th>No</th>
+                    <th>Hero</th>
+                    <th>Banned Rate</th>
+                </tr>
+                <?php 
+                $i = 1; 
+                foreach($banneds as $banned):
+                $img = str_replace(" ", "_", strtolower($banned['name'])).".webp"; 
+                ?>
+                <tr class="align-middle">
+                    <td><?= $i ?></td>
+                    <td class="text-start">
+                        <img src="src/img/hero/<?= $img ?>" alt="<?php $banned['name'] ?>" class="border rounded ms-5" height="50">
+                        <?= $banned['name'] ?>
+                    </td>
+                    <td><?= $banned['banned'] ?></td>
+                </tr>
+                <?php 
+                $i++; 
+                endforeach ?>
+            </table>
+        </div>
+            
     </main>
+    <script src="script/script.js"></script>
 </body>
 </html>

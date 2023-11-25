@@ -1,8 +1,15 @@
 <?php
-$username = 'root';
-$hostname = 'localhost';
-$password = '';
-$database = 'mlbb';
+if(str_contains(getcwd(), "xampp")) {
+    $username = 'root';
+    $hostname = 'localhost';
+    $password = '';
+    $database = 'mlbb';
+} else {
+    $username = 'if0_34962067';
+    $hostname = 'sql209.infinityfree.com';
+    $password = 'aITkeptflow3';
+    $database = 'if0_34962067_mlbb';
+}
 
 $conn = mysqli_connect($hostname, $username, $password, $database);
 
@@ -22,6 +29,11 @@ function heroes($role = NULL) {
     } else {
         $query = "SELECT * FROM `heroes` WHERE `primary_role` = '$role' OR `secondary_role` = '$role'";
     }
+    return query($query);
+}
+
+function heroesLane($lane) {
+    $query = "SELECT * FROM `heroes` WHERE `lane` LIKE '%$lane%' ORDER BY `name`";
     return query($query);
 }
 
@@ -68,5 +80,20 @@ function idSlug($slug) {
 
 function quoteSign($name) {
     return str_replace("'", "\\'", str_replace("\"", "\\\"", $name));
+}
+
+function popularity($limit) {
+    $query = "SELECT * FROM `heroes` ORDER BY `popularity` DESC limit $limit";
+    return query($query);
+}
+
+function wins($limit) {
+    $query = "SELECT * FROM `heroes` ORDER BY `win_rate` DESC limit $limit";
+    return query($query);
+}
+
+function banneds($limit) {
+    $query = "SELECT * FROM `heroes` ORDER BY `banned` DESC limit $limit";
+    return query($query);
 }
 ?>

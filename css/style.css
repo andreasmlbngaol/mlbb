@@ -3,6 +3,14 @@
     src: url(../src/font/mlbb.ttf);
 }
 
+@media only screen and (max-width: 768px) {
+    .heroes-card {
+        margin-left: 100px;
+        margin-right: 100px;
+        margin-bottom: 20px;
+    }
+  }
+
 * {
     font-family: mlbb;
 }
@@ -63,4 +71,9 @@ body {
 
 .span-adaptive {
     color: rgb(151, 0, 232);
+}
+
+.spinner-border {
+    width: 25vh !important;
+    height: 25vh !important;
 }

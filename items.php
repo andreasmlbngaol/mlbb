@@ -22,59 +22,7 @@ if(!isset($_GET['class'])) {
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar sticky-top navbar-expand-lg bg-navbar">
-        <a class="btn" data-bs-toggle="offcanvas" href="#sidebar" role="button">
-            <span class="navbar-toggler-icon"></span>
-            Type
-        </a>
-        <div class="container">
-            <a class="navbar-brand" href="index.php"><img src="src/img/icon.ico" alt="" height="50"></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbar">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php">Home</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Heroes
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="heroes.php">All</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="heroes.php?role=tank">Tank</a></li>
-                            <li><a class="dropdown-item" href="heroes.php?role=fighter">Fighter</a></li>
-                            <li><a class="dropdown-item" href="heroes.php?role=assassin">Assassin</a></li>
-                            <li><a class="dropdown-item" href="heroes.php?role=mage">Mage</a></li>
-                            <li><a class="dropdown-item" href="heroes.php?role=marksman">Marksman</a></li>
-                            <li><a class="dropdown-item" href="heroes.php?role=support">Support</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="emblems.php">Emblems</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="spells.php">Battle Spells</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle active disabled" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Equipments
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="items.php">All</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="items.php?class=Attack">Attack</a></li>
-                            <li><a class="dropdown-item" href="items.php?class=Magic">Magic</a></li>
-                            <li><a class="dropdown-item" href="items.php?class=Defense">Defense</a></li>
-                            <li><a class="dropdown-item" href="items.php?class=Movement">Movement</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <?php require "partial/navbar.php" ?>
     <!-- Sidebar -->
     <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebar">
         <div class="offcanvas-header">
@@ -97,6 +45,7 @@ if(!isset($_GET['class'])) {
         <h1>Equipments</h1>
     </header>
     <main>
+        <?php require "partial/loader.php" ?>
         <div class="container-fluid">
             <div class="row mx-2">
                 <?php foreach ($items as $item): 
@@ -107,7 +56,7 @@ if(!isset($_GET['class'])) {
                 $attributes = explode(";", spanColor($item['attributes']));
                 $skills = explode(";", spanColor($item['skills']));
                 ?>
-                <div class="col-item text-light text-center px-1">
+                <div class="col-md-2 text-light text-center px-1">
                     <p class="d-block gap-1 mb-3">
                         <a class="btn bg-gradient" data-bs-toggle="collapse" href="#<?= idSlug($slug) ?>" role="button">
                             <img src="src/img/items/<?php echo $slug ?>.webp" alt="<?= $name ?>" width="60">
@@ -138,7 +87,6 @@ if(!isset($_GET['class'])) {
             </div>
         </div>
     </main>
-
-
+    <script src="script/script.js"></script>
 </body>
 </html>
