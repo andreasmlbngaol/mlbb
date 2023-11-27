@@ -23,6 +23,10 @@ function query($query) {
     return $rows;
 }
 
+function go($path) {
+    header("Location:$path");
+}
+
 function heroes($role = NULL) {
     if($role === NULL) {
         $query = "SELECT * FROM `heroes`";
@@ -59,6 +63,10 @@ function spanColor($text) {
     $hybrid = str_replace('Hybrid', "<span class='span-hybrid'>Hybrid</span>", $magic);
     $adaptive = str_replace('Adaptive', "<span class='span-adaptive'>Adaptive</span>", $hybrid);
     return $adaptive;
+}
+
+function enter($text) {
+    return str_replace(". ", ".<br>", $text);
 }
 
 function items($class = NULL) {

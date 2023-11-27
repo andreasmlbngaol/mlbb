@@ -1,6 +1,6 @@
 <?php $page = basename($_SERVER['PHP_SELF']) ?>
 <!-- Navbar -->
-    <nav class="navbar sticky-top navbar-expand-lg bg-navbar">
+    <nav class="navbar sticky-top navbar-expand-lg bg-navbar mb-2">
         <div class="container">
             <a class="navbar-brand" href="index.php"><img src="src/img/icon.ico" alt="" height="50"></a>
             <?php if(str_contains($page, "heroes") || str_contains($page, "items")): ?>

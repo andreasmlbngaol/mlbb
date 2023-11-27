@@ -1,7 +1,7 @@
 <?php
 require "functions.php";
 if(!isset($_GET['role']) && !isset($_GET['lane'])) {
-    $heroes = heroes();
+    go("heroes.php?role=Tank");
 } else if(isset($_GET['role'])) {
     $role = $_GET['role'];
     $heroes = heroes($role);
@@ -74,16 +74,18 @@ if(!isset($_GET['role']) && !isset($_GET['lane'])) {
                     $secondary = $hero['secondary_role'];
                 ?>
                 <div class="col-md-2 mb-3">
-                    <div class="card heroes-card">
-                        <img src="src/img/hero/<?= $img ?>.webp" class="card-img-top" alt="<?= $name ?>">
-                        <div class="card-img-overlay d-flex flex-column justify-content-end m-0 p-0 text-center text-light">
-                            <div class="card-body-container bg-fade bg-gradient">
-                                <h5 class="card-title mb-1"><?= $name ?></h5>
-                                <p class="card-text my-0 fs-6">(<?= $title ?>)</p>
-                                <p class="card-text my-0 fs-6"><?= $primary ?><?php echo ($secondary) ? '/' . $secondary : '' ?></p>
+                    <a href="detail.php?hero=<?= $name ?>">
+                        <div class="card heroes-card">
+                            <img src="src/img/hero/<?= $img ?>.webp" class="card-img-top" alt="<?= $name ?>">
+                            <div class="card-img-overlay d-flex flex-column justify-content-end m-0 p-0 text-center text-light">
+                                <div class="card-body-container bg-fade bg-gradient">
+                                    <h5 class="card-title mb-1"><?= $name ?></h5>
+                                    <p class="card-text my-0 fs-6">(<?= $title ?>)</p>
+                                    <p class="card-text my-0 fs-6"><?= $primary ?><?php echo ($secondary) ? '/' . $secondary : '' ?></p>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
                 <?php endforeach ?>
             </div>
