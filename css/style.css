@@ -9,6 +9,10 @@
         margin-right: 100px;
         margin-bottom: 20px;
     }
+
+    .ranking-img {
+        height: 30px !important;
+    }
   }
   
 @media only screen and (min-width: 769px) {
@@ -85,4 +89,8 @@ body {
 .spinner-border {
     width: 25vh !important;
     height: 25vh !important;
+}
+
+.ranking-img {
+    height: 200px !important;
 }

@@ -2,7 +2,7 @@
 <!-- Navbar -->
     <nav class="navbar sticky-top navbar-expand-lg bg-navbar mb-2">
         <div class="container">
-            <a class="navbar-brand" href="index.php"><img src="src/img/icon.ico" alt="" height="50"></a>
+            <a class="navbar-brand my-0" href="index.php"><img src="src/img/icon.ico" alt="" height="40"></a>
             <?php if(str_contains($page, "heroes") || str_contains($page, "items")): ?>
             <a class="btn" data-bs-toggle="offcanvas" href="#sidebar" role="button">
                 <span class="navbar-toggler-icon"></span>
