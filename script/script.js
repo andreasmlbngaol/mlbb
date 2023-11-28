@@ -13,11 +13,13 @@ document.onreadystatechange = function () {
 };
 
 function createCardElement() {
+    jQuery('<a>', {
+        id: 'random-pick-a'
+    }).appendTo(".random-picker");
     jQuery('<div>', {
         class: 'card heroes-card',
         id: "random-pick-card"   
-    }).appendTo(".random-picker");
-
+    }).appendTo("#random-pick-a");
     jQuery('<img>', {
         class: "card-img-top",
         id: "random-pick-img"

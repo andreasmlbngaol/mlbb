@@ -23,6 +23,17 @@ function query($query) {
     return $rows;
 }
 
+function utf8ize( $mixed ) {
+    if (is_array($mixed)) {
+        foreach ($mixed as $key => $value) {
+            $mixed[$key] = utf8ize($value);
+        }
+    } elseif (is_string($mixed)) {
+        return mb_convert_encoding($mixed, "UTF-8", "UTF-8");
+    }
+    return $mixed;
+}
+
 function go($path) {
     header("Location:$path");
 }
@@ -66,7 +77,7 @@ function spanColor($text) {
 }
 
 function enter($text) {
-    return str_replace(". ", ".<br>", $text);
+    return str_replace("×", "*", str_replace(". ", ".<br>", $text));
 }
 
 function items($class = NULL) {

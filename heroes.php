@@ -60,7 +60,7 @@ if(!isset($_GET['role']) && !isset($_GET['lane'])) {
     <!-- Main -->
     <main class="text-center">
         <?php require "partial/loader.php" ?>
-        <button class="btn btn-warning my-3" onclick="randomPick()" id="open-random">Pick Random</button>
+        <button class="btn btn-warning my-3" id="open-random">Pick Random</button>
         <button class="btn btn-close btn-danger bg-danger my-3 visually-hidden" id="close-random"></button>
         <div class="container">
             <div class="random-picker text-light visually-hidden col-md-2 mx-auto mb-3"></div>
@@ -103,13 +103,13 @@ if(!isset($_GET['role']) && !isset($_GET['lane'])) {
         })
 
         <?php
-            $jsHeroes = json_encode($heroes);
+            $jsHeroes = json_encode( utf8ize( $heroes ) );;
             echo "const heroes = ". $jsHeroes . ";\n";
         ?>
         let hero;
         const elem = $(".random-picker");
 
-        function randomPick() {
+        $("#open-random").click(function() {
             // kalau belum ada id random-pick-card
             if(!$("#random-pick-card").length) {
                 createCardElement();
@@ -123,6 +123,7 @@ if(!isset($_GET['role']) && !isset($_GET['lane'])) {
             primary = hero['primary_role'];
             secondary = hero['secondary_role'];
 
+            $("#random-pick-a").attr('href', 'detail.php?hero=' + name);
             $("#random-pick-img").attr('src', 'src/img/hero/' + img);
             $("#random-pick-img").attr('alt', name);
             $("#random-pick-card-header").html(name);
@@ -130,8 +131,7 @@ if(!isset($_GET['role']) && !isset($_GET['lane'])) {
             $("#random-pick-card-role").html(secondary ? primary + "/" + secondary : primary);
             
             $(".random-picker").removeClass('visually-hidden');
-
-        }
+        });
     </script>
 </body>
 </html>
