@@ -53,6 +53,7 @@ $opens = banneds($rank, false);
         <p class="text-center text-light mt-0 mb-5">Source: <i><a href="https://uhdpaper.com" targer="_blank">UHD Paper</a></i></p>
         <div class="container mb-5 text-center d-grid">
             <h3 class="text-light">Info is update until Season 30, November 23<sup>rd</sup> 2023 (Rank Mythic+)</h3>
+            <h4 class="text-light">Patch: 1.8.32.905.3 (Moskov Revamp)</h4>
             <div class="category-button">
                 <a class="btn bg-info m-2" id="most-popular-open" data-bs-toggle="collapse" href="#most-popular" role="button">
                     <h4 class="text-dark mt-2 text-decoration-underline">Most Popular</h4>
