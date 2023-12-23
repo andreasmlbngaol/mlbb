@@ -44,7 +44,7 @@
                         <a class="nav-link<?= str_contains($page, "spells") ? " active disabled" : "" ?>" href="spells.php">Battle Spells</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle<?= str_contains($page, "items") ? " active" : "" ?>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle<?= str_contains($page, "items") ? " active" : "" ?>" href="#" role="button" data-bs-toggle="dropdown">
                             Equipments
                         </a>
                         <ul class="dropdown-menu">
@@ -57,6 +57,20 @@
                         </ul>
                     </li>
                 </ul>
+                <?php if(!isset($_SESSION['user'])) { ?>
+                <a class="nav-link<?= str_contains($page, "login") || str_contains($page, "register") ? " active disabled" : "" ?>" href="login.php">Login</a>
+                <?php } else { ?>
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        Hi, <?= $_SESSION['user']['name'] ?>
+                    </a>
+                    <ul class="dropdown-menu" id="profile">
+                        <li><a class="dropdown-item" href="favorites.php">My Favorites</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="logout.php">Log Out</a></li>
+                    </ul>
+                </div>
+                <?php } ?>
             </div>
         </div>
     </nav>

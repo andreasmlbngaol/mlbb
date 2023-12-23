@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 28, 2023 at 04:12 PM
+-- Generation Time: Dec 23, 2023 at 04:28 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -50,6 +50,18 @@ INSERT INTO `emblems` (`id`, `name`, `attribute_1`, `effect_1`, `attribute_2`, `
 (5, 'Custom Fighter Emblem', 'Spell Vamp', '10%', 'Adaptive Attack', '22', 'Hybrid Defense', '6'),
 (6, 'Custom Support Emblem', 'Heal Effect', '12%', 'Cooldown Reduction', '10%', 'Movement Speed', '6%'),
 (7, 'Custom Marksman Emblem', 'Attack Speed', '15%', 'Adaptive Attack', '5%', 'Lifesteal', '5%');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `favorites`
+--
+
+CREATE TABLE `favorites` (
+  `id` int(11) NOT NULL,
+  `hero` varchar(64) NOT NULL,
+  `username` varchar(64) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -394,6 +406,26 @@ INSERT INTO `talents` (`id`, `emblem`, `level`, `name`, `description`) VALUES
 (23, 'Custom Marksman Emblem', 2, 'Weapons Master', 'Physical Attack and Magic Power gained from equipment, emblem, talents, and skills are increased by 5%.'),
 (24, 'Custom Marksman Emblem', 3, 'Weakness Finder', 'Basic Attacks slow enemies by 90% and reduce their Attack Speed by 50%.');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
+  `name` varchar(64) NOT NULL,
+  `username` varchar(32) NOT NULL,
+  `password` char(60) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `name`, `username`, `password`) VALUES
+(1, 'Sana.', 'andreasmlbngaol', '$2y$10$QHR1Dl6NV4lkNgPfAYmcu.1h0o9.12DaHpjyl4PyJy8.IOxEqtFu.');
+
 --
 -- Indexes for dumped tables
 --
@@ -402,6 +434,12 @@ INSERT INTO `talents` (`id`, `emblem`, `level`, `name`, `description`) VALUES
 -- Indexes for table `emblems`
 --
 ALTER TABLE `emblems`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `favorites`
+--
+ALTER TABLE `favorites`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -429,6 +467,12 @@ ALTER TABLE `talents`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -437,6 +481,12 @@ ALTER TABLE `talents`
 --
 ALTER TABLE `emblems`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `favorites`
+--
+ALTER TABLE `favorites`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT for table `heroes`
@@ -461,6 +511,12 @@ ALTER TABLE `spells`
 --
 ALTER TABLE `talents`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

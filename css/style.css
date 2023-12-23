@@ -3,6 +3,10 @@
     src: url(../src/font/mlbb.ttf);
 }
 
+:root {
+    --navbar-color: rgb(248, 238, 39);    
+}
+
 @media only screen and (max-width: 768px) {
     .heroes-card {
         margin-left: 100px;
@@ -37,7 +41,11 @@ body {
 }
 
 .bg-navbar {
-    background-color: rgb(248, 238, 39) !important;
+    background-color: var(--navbar-color) !important;
+}
+
+.text-navbar {
+    color: var(--navbar-color) !important
 }
 
 .bg-gradient {
@@ -46,6 +54,7 @@ body {
 
 .active {
     text-decoration: underline !important;
+    color: red !important;
 }
 
 .bg-fade {
@@ -93,4 +102,8 @@ body {
 
 .ranking-img {
     height: 200px !important;
+}
+
+.user-form {
+    max-width: 400px !important;
 }

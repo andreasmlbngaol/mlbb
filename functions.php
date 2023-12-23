@@ -12,6 +12,7 @@ if(str_contains(getcwd(), "xampp")) {
 }
 
 $conn = mysqli_connect($hostname, $username, $password, $database);
+session_start();
 
 function query($query) {
     global $conn;
@@ -117,5 +118,74 @@ function banneds($limit, $desc = true) {
     $order = $desc ? "DESC" : "ASC";
     $query = "SELECT * FROM `heroes` ORDER BY `banned` $order limit $limit";
     return query($query);
+}
+
+function login($post) {
+    global $incorrectPassword;
+    global $invalidUser;
+    $username = strtolower($post['username']);
+    $password = $post['password'];
+    $query = "SELECT * FROM `user` WHERE `username` = '$username'";
+    $result = query($query);
+    if($result) {
+        $passwordReal = $result[0]['password'];
+        if(password_verify($password, $passwordReal)) {
+            $_SESSION['user'] = $result[0];
+            return TRUE;
+        } else {
+            $incorrectPassword = TRUE;
+        }
+    } else {
+        $invalidUser = TRUE;
+    }
+    return FALSE;
+}
+
+function register($post) {
+    global $conn;
+    $name = $post['name'];
+    $username = strtolower($post['username']);
+    $password = password_hash($post['password'], PASSWORD_DEFAULT);
+    $query = "SELECT * FROM `user` WHERE `username` = '$username'";
+    $result = query($query);
+    if($result) {
+        return FALSE;
+    } else {
+        $query = "INSERT INTO `user` VALUES('', '$name', '$username', '$password')";
+        if(mysqli_query($conn, $query)) {
+            return TRUE;
+        }
+    }
+}
+
+function favCount($hero) {
+    $query = "SELECT * FROM `favorites` WHERE `hero` = '$hero'";
+    $results = query($query);
+    return(count($results));
+}
+
+function favCheck($hero, $session) {
+    $username = $session['user']['username'];
+    $query = "SELECT * FROM `favorites` WHERE `hero` = '$hero' AND `username` = '$username'";
+    if(count(query($query)) > 0) {
+        return TRUE;
+    } else {
+        return FALSE;
+    }
+}
+
+function getFav($session) {
+    $username = $session['user']['username'];
+    $query = "SELECT `hero` FROM `favorites` WHERE `username` = '$username'";
+    $favorites = [];
+    foreach(query($query) as $hero) {
+        array_push($favorites, $hero['hero']);
+    }
+    $heroes = [];
+    foreach($favorites as $favorite) {
+        $query = "SELECT * FROM `heroes` WHERE `name` = '$favorite'";
+        array_push($heroes, query($query)[0]);
+    }
+    return $heroes;
 }
 ?>

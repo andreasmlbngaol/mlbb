@@ -20,7 +20,7 @@ $banned = $hero['banned'];
 $passiveExplode = explode("; ", $hero['passive']);
 $passiveName = $passiveExplode[0];
 $passiveSlug = str_replace(":", "", str_replace(" ", "_", $passiveName));
-$passiveDesc = $passiveExplode[1];
+$passiveDesc = $passiveExplode[1] ?? NULL;
 $skillsName = explode("; ", $hero['skills_name']);
 $skillsSlug = [];
 foreach($skillsName as $skill) {
@@ -33,7 +33,11 @@ $max = [];
 foreach($skillsCooldown as $cd) {
     $minMax = explode("-", $cd);
     array_push($min, 0.6 * strval(floatval($minMax[0])) ."s");
-    array_push($max, 0.6 * strval(floatval($minMax[1])) . "s");
+    array_push($max, 0.6 * strval(floatval($minMax[1] ?? NULL)) . "s");
+}
+$favCount = favCount($get);
+if(isset($_SESSION['user'])) {
+    $favCheck = favCheck($get, $_SESSION);
 }
 ?>
 
@@ -49,6 +53,7 @@ foreach($skillsCooldown as $cd) {
     <script src="script/popper.min.js"></script>
     <script src="script/bootstrap.min.js"></script>
     <script src="script/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 </head>
 <body>
     <!-- Navbar -->
@@ -85,56 +90,95 @@ foreach($skillsCooldown as $cd) {
                 </div>
             </div>
         </div>
+        <div class="fav-menu d-block">
+            <box-icon type='solid' name='heart-circle' color='red' size='lg'></box-icon>
+            <p class=" fs-5 mt-0 mb-2" id="fav-count"><?= $favCount ?></p>
+            <a <?= !isset($_SESSION['user']) ? "href='login.php' " : '' ?>class="btn btn-danger" id="add-favorite">Add To Favorites</a>
+            <?php if(isset($_SESSION['user'])): ?>
+            <?php if($favCheck): ?>
+            <a class="btn btn-warning" id="remove-favorite">Remove From Favorites</a>
+            <?php endif ?>
+            <?php endif ?>
+        </div>
         <div>
             <?php if(count($skillsName) > 1): ?>
-            <div class="row mb-3">
-                <?php for($i = 0; $i < count($skillsName); $i++): 
+                <div class="row mb-3">
+                    <?php for($i = 0; $i < count($skillsName); $i++): 
                 if($i % 3 === 0):
                 ?>
             </div>
             <div class="row mb-3">
                 <?php endif ?>
                 <?php if($i === 0): ?>
-                <div class="d-flex justify-content-center">
-                    <div class="skills-container col-md-6 text-center text-dark mb-3">
-                        <label class="fs-4 text-decoration-underline text-light" for="<?= $passiveSlug ?>">Passive:</label>
-                        <div class="mx-1 bg-light rounded px-2 pt-0">
-                            <img class="pt-3" src="src/img/skills/<?= $passiveSlug ?>.webp" alt="<?= $passiveName ?>" id="<?= $passiveSlug ?>">
-                            <br>
-                            <label class="fs-4 text-decoration-underline" for="<?= $passiveSlug ?>"><?= $passiveName ?></label>
-                            <br>
-                            <div class="text-start p-2 fs-7">
-                                <p><?= enter(spanColor($passiveDesc)) ?></p>
+                    <div class="d-flex justify-content-center">
+                        <div class="skills-container col-md-6 text-center text-dark mb-3">
+                            <label class="fs-4 text-decoration-underline text-light" for="<?= $passiveSlug ?>">Passive:</label>
+                            <div class="mx-1 bg-light rounded px-2 pt-0">
+                                <img class="pt-3" src="src/img/skills/<?= $passiveSlug ?>.webp" alt="<?= $passiveName ?>" id="<?= $passiveSlug ?>">
+                                <br>
+                                <label class="fs-4 text-decoration-underline" for="<?= $passiveSlug ?>"><?= $passiveName ?></label>
+                                <br>
+                                <div class="text-start p-2 fs-7">
+                                    <p><?= enter(spanColor($passiveDesc)) ?></p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <label class="fs-4 text-decoration-underline text-light">Skills:</label>
-            <div class="row mb-3">
-                <?php endif ?>
-                <div class="skills-container col-md text-center text-dark mb-3">
-                    <div class="mx-1 bg-light rounded p-2">
-                        <img class="pt-3" src="src/img/skills/<?= $skillsSlug[$i] ?>.webp" alt="<?= $skillsName[$i] ?>" id="<?= $skillsSlug[$i] ?>">
-                        <br>
-                        <label class="fs-4 text-decoration-underline" for="<?= $skillsSlug[$i] ?>"><?= $skillsName[$i] ?></span></label>
-                        <br>
-                        <div class="bg-dark rounded text-light mx-4">
-                            <p class="m-0">Cooldown 0%: <span class="text-success"><?= str_replace("-", "s - ", $skillsCooldown[$i] . "s") ?></p>
-                            <?php if($name !== "Lunox"): ?>
-                            <p class="m-0">Cooldown 40%: <span class="text-danger"><?= $min[$i] . " - " . $max[$i] ?></span></p>
-                            <?php endif ?>
+                <label class="fs-4 text-decoration-underline text-light">Skills:</label>
+                <div class="row mb-3">
+                    <?php endif ?>
+                    <div class="skills-container col-md text-center text-dark mb-3">
+                        <div class="mx-1 bg-light rounded p-2">
+                            <img class="pt-3" src="src/img/skills/<?= $skillsSlug[$i] ?>.webp" alt="<?= $skillsName[$i] ?>" id="<?= $skillsSlug[$i] ?>">
+                            <br>
+                            <label class="fs-4 text-decoration-underline" for="<?= $skillsSlug[$i] ?>"><?= $skillsName[$i] ?></span></label>
+                            <br>
+                            <div class="bg-dark rounded text-light mx-4">
+                                <p class="m-0">Cooldown 0%: <span class="text-success"><?= str_replace("-", "s - ", $skillsCooldown[$i] . "s") ?></p>
+                                <?php if($name !== "Lunox"): ?>
+                                    <p class="m-0">Cooldown 40%: <span class="text-danger"><?= $min[$i] . " - " . $max[$i] ?></span></p>
+                                    <?php endif ?>
+                                </div>
+                                <div class="text-start p-2 fs-7">
+                                    <p><?= enter(spanColor($skillsDesc[$i])) ?></p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="text-start p-2 fs-7">
-                            <p><?= enter(spanColor($skillsDesc[$i])) ?></p>
-                        </div>
+                        <?php endfor ?>
                     </div>
                 </div>
-                <?php endfor ?>
-            </div>
-        </div>
     </main>
     <?php endif ?>
     <script src="script/script.js"></script>
+    <script>
+        $('#add-favorite').click(function() {
+            $.ajax({
+                url: 'ajax/favorite.php',
+                method: 'POST',
+                data: {hero: '<?= $get ?>', username: '<?= $_SESSION['user']['username'] ?>', operation: 'add'},
+                success: function() {
+                    location.reload();
+                }
+            })
+        })
+        $('#remove-favorite').click(function() {
+            $.ajax({
+                url: 'ajax/favorite.php',
+                method: 'POST',
+                data: {hero: '<?= $get ?>', username: '<?= $_SESSION['user']['username'] ?>', operation: 'remove'},
+                success: function() {
+                    location.reload();
+                }
+            })
+        })
+        </script>
+        <?php if(isset($_SESSION['user'])): ?>
+        <?php if($favCheck): ?>
+        <script>
+            $('#add-favorite').hide();
+        </script>
+        <?php endif ?>
+        <?php endif ?>
     </body>
 </html>

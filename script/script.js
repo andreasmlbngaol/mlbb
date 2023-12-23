@@ -50,4 +50,3 @@ function createCardElement() {
         id: "random-pick-card-role"
     }).appendTo("#random-pick-card-body");
 };
-
